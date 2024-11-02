@@ -111,7 +111,7 @@ export class CapacitorBarcodeScannerWeb extends WebPlugin implements CapacitorBa
           focusMode: 'continuous',
           height: { min: 576, ideal: 1920 },
           deviceId: undefined,
-          facingMode: undefined,
+          facingMode: param.facingMode,
         },
       };
 
@@ -122,7 +122,7 @@ export class CapacitorBarcodeScannerWeb extends WebPlugin implements CapacitorBa
       };
 
       const OSBarcodeWebScannerErrorCallback = (error: string) => {
-        if (error.indexOf('NotFoundException') === -1) {
+        if (error.indexOf('NotFoundException') === -1 && error.indexOf('No barcode or QR code detected') === -1) {
           this.stopAndHideScanner();
           console.error(`[Scanner Web Error] ${error}`);
           reject(error);
